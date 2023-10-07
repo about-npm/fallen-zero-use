@@ -1,0 +1,54 @@
+{
+  "name": "@fallen-zero/use",
+  "version": "1.0.1",
+  "description": "fallen-zero Api",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.mjs",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.mjs",
+      "require": "./dist/index.cjs.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "dev": "node ./build.js -w",
+    "build:types": "tsc -p ./tsconfig.json --emitDeclarationOnly",
+    "build:bundle": "node ./build.js",
+    "build": "pnpm clean && pnpm build:bundle && pnpm build:types",
+    "prepare": "pnpm build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "vue",
+    "typescript",
+    "fallen-zero",
+    "fallen",
+    "zero",
+    "use"
+  ],
+  "author": "fallen-zero",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
+    "dayjs": "^1.11.10",
+    "esbuild": "^0.19.4",
+    "js-cookie": "^3.0.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2",
+    "vue": "^3.3.4"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.5",
+    "vue": "^3.0.0"
+  }
+}
