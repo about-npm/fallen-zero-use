@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-08 14:50:11
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-10-08 15:42:46
+ * @LastEditTime : 2023-10-19 10:03:57
  * @FilePath     : /zero-use/src/useRequest/index.ts
  * @FileName     :
  */
@@ -42,6 +42,7 @@ export const useRequest = <T extends (...args: any[]) => Promise<any>>(
     try {
       const res = await fn(...currParams);
       data.value = res;
+      error.value = void 0;
     } catch (err) {
       error.value = err;
     }
