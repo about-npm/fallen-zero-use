@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-21 13:43:23
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-10-21 14:03:08
+ * @LastEditTime : 2023-12-08 08:59:58
  * @FilePath     : /zero-use/src/performChunk/index.ts
  * @FileName     : 分时函数
  */
@@ -51,6 +51,31 @@ export function browserPerformChunk<T>(
     requestIdleCallback((deadline) => {
       task(() => deadline.timeRemaining() > 0);
     });
+  };
+
+  preformChunk(datas, taskHandler, scheduler);
+}
+
+/** 使用 setTimeout 进行分时任务
+ * @param datas 需要分时的数据或者次数
+ * @param taskHandler 需要执行的任务
+ * @param [duration=50] 执行时长(毫秒), 默认50毫秒
+ * @param [waitTime=100] 等待时间（毫秒）, 默认100毫秒
+ */
+export function timeoutPerformChunk<T>(
+  datas: Array<T> | number,
+  taskHandler: (data: T, index: number) => void,
+  duration: number = 50,
+  waitTime: number = 100
+) {
+  /** setTimeout 调度器
+   * @param task 需要执行的任务
+   */
+  const scheduler = (task: (isGoOn: () => boolean) => void) => {
+    setTimeout(() => {
+      const start = Date.now();
+      task(() => Date.now() - start < duration);
+    }, waitTime);
   };
 
   preformChunk(datas, taskHandler, scheduler);
