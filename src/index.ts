@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 14:23:05
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-10-25 16:07:02
+ * @LastEditTime : 2023-12-08 09:03:30
  * @FilePath     : /zero-use/src/index.ts
  * @FileName     :
  */
@@ -23,3 +23,5 @@ export * from './useCompRef';
 export * from './useRequest';
 export * from './performChunk';
 export * from './useAnimation';
+export * from './useDebounceRef';
+export * from './useRequestImmediate';
