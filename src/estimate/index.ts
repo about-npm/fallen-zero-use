@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:31:06
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-11-11 10:33:44
+ * @LastEditTime : 2023-12-09 17:30:16
  * @FilePath     : /zero-use/src/estimate/index.ts
  * @FileName     :
  */
@@ -103,4 +103,88 @@ export function validatePhoneAndTelMD(phone: string) {
  */
 export function isAllEqual<T>(a: T, b: T) {
   return JSON.stringify(a) === JSON.stringify(b);
+}
+
+/** 判断是否为空
+ * @param {unknown} value
+ * @returns {boolean} 是否为空
+ */
+const isNil = (v: unknown): boolean => {
+  return typeof v === 'undefined' || v === null;
+};
+
+/** 判断数组是否相同
+ * @param {any[]} a 数据一
+ * @param {any[]} b 数据二
+ * @param {boolean} [ignoreArrayPosition=false] 是否忽略数组位置
+ * @returns {boolean} 是否相同
+ */
+export function arrayIsEqual(
+  a: any[],
+  b: any[],
+  ignoreArrayPosition: boolean = false
+): boolean {
+  // 判断数组大小是否一致, 不一致的话其内容也就不需要判断了
+  if (a.length !== b.length) return false;
+  // 如果不忽略数组位置的话, 也就是说每个数组元素位置一样, 并且其值也一样才判断为相等
+  if (!ignoreArrayPosition) return a.every((v, i) => anyIsEqual(v, b[i]));
+  // 忽略数组位置的话, 那么只要其中一个数组每个元素都可以在另一个数组中找到, 并且每个元素在两个数组的数量是相等的话, 那么就可以判定为相等
+  return a.every(
+    (v) =>
+      b.findIndex((v2) => anyIsEqual(v2, v)) >= 0 &&
+      b.filter((v2) => anyIsEqual(v2, v)).length ===
+        a.filter((v1) => anyIsEqual(v1, v)).length
+  );
+}
+
+/** 判断对象是否相同
+ * @param {Record<string, any>} a 数据一
+ * @param {Record<string, any>} b 数据二
+ * @returns {boolean} 是否相同
+ */
+export function objectIsEqual(
+  a: Record<string, any>,
+  b: Record<string, any>
+): boolean {
+  // 首先对象属性个数要一致, 不一致的话其内容也就不需要判断了
+  if (Object.keys(a).length !== Object.keys(b).length) return false;
+  // 只要其中一个对象的属性名在另一个对象存在, 就判断其值是否相等就可以了
+  return Object.keys(a).every((k) => {
+    if (Object.keys(b).includes(k)) {
+      return anyIsEqual(a[k], b[k]);
+    }
+    return false;
+  });
+}
+
+/** 判断两个值是否相等
+ * @param {*} a 数据一
+ * @param {*} b 数据二
+ * @param {boolean} [ignoreArrayPosition=false] 是否忽略数组位置
+ * @returns {boolean} 是否相等
+ */
+export function anyIsEqual(
+  a: any,
+  b: any,
+  ignoreArrayPosition: boolean = false
+): boolean {
+  // 首先判断要比较的两个参数是否为空
+  if (isNil(a) || isNil(b)) {
+    // 只要其中一个为空的花, 直接返回它们是否相等
+    return a === b;
+  }
+  // 再判断他们的类型是否相等, 类型不相等的话, 其值也无须判断了
+  if (a.constructor === b.constructor) {
+    // 如果都是数组, 则判断数组方式是否相等
+    if (a.constructor === Array) {
+      return arrayIsEqual(a, b, ignoreArrayPosition);
+    }
+    // 如果都是对象, 则判断对象方式是否相等
+    if (a.constructor === Object) {
+      return objectIsEqual(a, b);
+    }
+    // 其余的直接判断是否相等
+    return a === b;
+  }
+  return false;
 }
