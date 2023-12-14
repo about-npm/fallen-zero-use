@@ -2,12 +2,16 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:08:01
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-10-07 15:17:44
+ * @LastEditTime : 2023-12-14 11:05:16
  * @FilePath     : /zero-use/src/dateFormat/index.ts
  * @FileName     :
  */
 
 import dayjs, { Dayjs } from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
+// 汉化 dayjs
+dayjs.locale('zh-cn');
 
 export enum DATE_FORMAT {
   /** 用`-`分割的年月日格式 */
