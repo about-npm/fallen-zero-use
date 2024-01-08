@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:31:06
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-12-09 17:30:16
+ * @LastEditTime : 2024-01-08 10:02:05
  * @FilePath     : /zero-use/src/estimate/index.ts
  * @FileName     :
  */
@@ -26,6 +26,28 @@ export function decimalPlaces(num: number): number {
   const count = num.toString().split('.')[1].length;
   return count;
 }
+
+/** 保留小数位数
+ * @author fallen_zero
+ * @param {number} num 数值
+ * @param {number} places 小数位数
+ * @returns {number} 保留小数位数
+ */
+export const toFixed = (num: number, places: number): number => {
+  const decimal = decimalPlaces(num);
+  return decimal > places ? places : decimal;
+};
+
+/** 精度计算
+ * @author fallen_zero
+ * @param {number} num 数值
+ * @param {number} [places=2] 小数位数
+ * @returns {number} 结果
+ */
+export const toPrecision = (num: number, places: number = 2): number => {
+  const value = num.toFixed(toFixed(num, places));
+  return +value;
+};
 
 /**
  * 判断一个值是否为空

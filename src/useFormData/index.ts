@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 14:58:41
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-10-07 15:17:09
+ * @LastEditTime : 2024-01-08 10:00:12
  * @FilePath     : /zero-use/src/useFormData/index.ts
  * @FileName     :
  */
@@ -24,8 +24,8 @@ export function useFormData(form: Record<string, unknown>): FormData {
       form[key] !== undefined &&
       form[key] !== null
     ) {
-      const value = JSON.stringify(form[key]);
-      formData.append(key, value);
+      const value = form[key];
+      formData.append(key, String(value));
     }
   }
   return formData;
