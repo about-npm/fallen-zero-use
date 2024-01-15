@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:24:08
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-15 10:19:04
+ * @LastEditTime : 2024-01-15 10:26:03
  * @FilePath     : /zero-use/src/fileProcessing/index.ts
  * @FileName     :
  */
@@ -80,7 +80,7 @@ export class ImageCompression {
  * @param {string} type 文件类型
  * @returns blob
  */
-function base64ToBlob(base64: string, type: string) {
+export function base64ToBlob(base64: string, type: string) {
   const byteCharacters = atob(
     base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, '')
   );
@@ -96,9 +96,31 @@ function base64ToBlob(base64: string, type: string) {
  * @param {string} type 文件类型
  * @returns 文件
  */
-function base64ToFile(base64: string, fileName: string, type: string) {
+export function base64ToFile(base64: string, fileName: string, type: string) {
   const blob = base64ToBlob(base64, type);
   return new File([blob], fileName, { type });
+}
+
+/** 文件转二进制
+ * @param {File} file 文件
+ * @returns 二进制
+ */
+export function fileToBinary(file: File) {
+  return new Promise<Uint8Array>((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const binary = new Uint8Array(arrayBuffer);
+      resolve(binary);
+    };
+
+    reader.onerror = () => {
+      reject(new Error('Failed to read file as binary'));
+    };
+
+    reader.readAsArrayBuffer(file);
+  });
 }
 
 /**
