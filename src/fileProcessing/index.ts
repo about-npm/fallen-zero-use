@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:24:08
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-15 10:26:03
+ * @LastEditTime : 2024-01-16 08:54:37
  * @FilePath     : /zero-use/src/fileProcessing/index.ts
  * @FileName     :
  */
@@ -138,4 +138,19 @@ export function getFileExt(filename: string): string {
     return '';
   }
   return filename.substring(index + 1).toLowerCase();
+}
+
+/** 获取文件大小
+ * @param {File} file 文件
+ * @return {string} 文件大小
+ */
+export function getFileSize(file: File): string {
+  let size = file.size;
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  let i = 0;
+  while (size >= 1024 && i < units.length - 1) {
+    size /= 1024;
+    i++;
+  }
+  return `${size.toFixed(2)} ${units[i]}`;
 }

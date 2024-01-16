@@ -1,4 +1,4 @@
-# Zero Use
+# Fallen-Zero Use
 
 Built-in composition APIs of Zero.
 
@@ -6,11 +6,11 @@ Built-in composition APIs of Zero.
 
 ```bash
 # with npm
-npm i @zero/use
+npm i @fallen-zero/use
 
 # with yarn
-yarn add @zero/use
+yarn add @fallen-zero/use
 
 # with pnpm
-pnpm add @zero/use
+pnpm add @fallen-zero/use
 ```
