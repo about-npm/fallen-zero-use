@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2024-01-17 10:19:01
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-17 10:28:39
+ * @LastEditTime : 2024-01-17 10:49:36
  * @FilePath     : /zero-use/src/useApiList/index.ts
  * @FileName     :
  */
@@ -85,6 +85,7 @@ export const useApiList = <T, P extends { page?: number; limit?: number }>(
     list.value = [...list.value, ...(data.value?.list ?? [])];
     total.value = data.value?.total ?? 0;
     loading.value = false;
+    refreshing.value = false;
     page++;
     if (data.value && data.value.list.length < currLimit) {
       finished.value = true;
