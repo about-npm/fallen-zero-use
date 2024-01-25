@@ -2,10 +2,12 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 14:58:41
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-08 10:00:12
+ * @LastEditTime : 2024-01-25 13:43:11
  * @FilePath     : /zero-use/src/useFormData/index.ts
  * @FileName     :
  */
+
+import { isArray, isFile, isObject } from 'src/is';
 
 /**
  * 将表单对象转为 FormData 格式
@@ -25,7 +27,13 @@ export function useFormData(form: Record<string, unknown>): FormData {
       form[key] !== null
     ) {
       const value = form[key];
-      formData.append(key, String(value));
+      if (isFile(value)) {
+        formData.append(key, value);
+      } else if (isArray(value) || isObject(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, String(value));
+      }
     }
   }
   return formData;
