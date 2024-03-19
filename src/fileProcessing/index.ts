@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:24:08
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-03-19 15:58:10
+ * @LastEditTime : 2024-03-19 16:20:43
  * @FilePath     : /zero-use/src/fileProcessing/index.ts
  * @FileName     :
  */
@@ -153,6 +153,18 @@ export function getFileSize(file: File): string {
     i++;
   }
   return `${size.toFixed(2)} ${units[i]}`;
+}
+
+/** 获取文件名称
+ * @param {string} file 文件
+ * @return {string} 文件名称
+ */
+export function getFileName(file: string): string {
+  const index = file.lastIndexOf('/');
+  if (index === -1) {
+    return file;
+  }
+  return file.substring(index + 1);
 }
 
 /**
