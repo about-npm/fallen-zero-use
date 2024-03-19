@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:24:08
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-16 08:54:37
+ * @LastEditTime : 2024-03-19 15:58:10
  * @FilePath     : /zero-use/src/fileProcessing/index.ts
  * @FileName     :
  */
@@ -153,4 +153,34 @@ export function getFileSize(file: File): string {
     i++;
   }
   return `${size.toFixed(2)} ${units[i]}`;
+}
+
+/**
+ * 修改文件路径
+ * @param {string} FILE_URL 文件路径
+ * @return 修改后的路径
+ */
+export function useFullUrl(
+  FILE_URL: string = ''
+): (path: string, isBase64?: boolean) => string {
+  /**
+   * 修改文件路径
+   * @param {string | undefined | null} path 路径
+   * @return 修改后的路径
+   */
+  function fullUrl(
+    path: string | undefined | null,
+    isBase64: boolean = false
+  ): string {
+    if (!path) return '';
+    if (/^http(s)?:\/\//.test(path) || /base64/i.test(path)) {
+      return path;
+    }
+    if (isBase64) {
+      return `data:image/png;base64,${path}`;
+    }
+    return `${FILE_URL ?? ''}${path.replace(/^~/, '')}`;
+  }
+
+  return fullUrl;
 }

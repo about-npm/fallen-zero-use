@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2024-01-08 09:56:53
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-08 09:59:01
+ * @LastEditTime : 2024-03-06 08:57:50
  * @FilePath     : /zero-use/src/useIntervalDate/index.ts
  * @FileName     : 实时获取时间
  */

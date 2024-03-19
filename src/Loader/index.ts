@@ -2,17 +2,19 @@
  * @Author       : fallen_zero
  * @Date         : 2024-01-18 11:21:45
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-20 11:58:35
+ * @LastEditTime : 2024-03-19 15:48:09
  * @FilePath     : /zero-use/src/Loader/index.ts
  * @FileName     :
  */
 import { App, Component, createApp } from 'vue';
 
 export class Loader {
-  private div = document.createElement('div');
   private app: App<Element> | null = null;
 
-  constructor(private comp: Component | (() => JSX.Element)) {}
+  constructor(
+    private comp: Component | (() => JSX.Element),
+    private div: Element = document.createElement('div')
+  ) {}
 
   public show() {
     this.app = createApp(this.comp);

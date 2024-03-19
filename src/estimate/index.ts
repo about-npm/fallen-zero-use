@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:31:06
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-25 13:34:07
+ * @LastEditTime : 2024-03-19 15:58:53
  * @FilePath     : /zero-use/src/estimate/index.ts
  * @FileName     :
  */
@@ -101,6 +101,25 @@ export function validatePhoneAndTel(phone: string) {
     return true;
   }
   return false;
+}
+
+/** 手机号码校验
+ * @param {string} phone
+ * @returns {boolean}
+ */
+export function validatePhone(phone: string): boolean {
+  const reg =
+    /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1589]))\d{8}$/;
+  return reg.test(phone);
+}
+
+/** 电话号码校验
+ * @param {string} phone
+ * @returns {boolean}
+ */
+export function validateTel(phone: string): boolean {
+  const reg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+  return reg.test(phone);
 }
 
 /**
@@ -210,3 +229,16 @@ export function anyIsEqual(
   }
   return false;
 }
+
+/** 数组求和
+ * @param arg 需要求和的数据
+ * @returns 求和结果
+ * @example
+ * @example
+ * sum(1, 2, 3, 4)
+ * =>
+ * 10
+ */
+export const sum = (...arg: number[]) => {
+  return arg.reduce<number>((prev, curr) => (prev += curr), 0);
+};
