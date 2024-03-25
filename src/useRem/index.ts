@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2024-03-25 15:39:11
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-03-25 15:39:19
+ * @LastEditTime : 2024-03-25 15:44:38
  * @FilePath     : /zero-use/src/useRem/index.ts
  * @FileName     : rem 比例转换
  */
@@ -121,6 +121,18 @@ export function useRem({
   if (immediate) {
     defaultListener && startListener();
     refreshRem();
+  }
+
+  if (dpr >= 2) {
+    const fakeBody = document.createElement('body');
+    const testElement = document.createElement('div');
+    testElement.style.border = '.5px solid transparent';
+    fakeBody.appendChild(testElement);
+    root.appendChild(fakeBody);
+    if (testElement.offsetHeight === 1) {
+      root.classList.add('hairlines');
+    }
+    root.removeChild(fakeBody);
   }
 
   return {
