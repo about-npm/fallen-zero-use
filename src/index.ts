@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 14:23:05
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-25 13:40:37
+ * @LastEditTime : 2024-03-25 15:39:32
  * @FilePath     : /zero-use/src/index.ts
  * @FileName     :
  */
@@ -29,3 +29,4 @@ export * from './useIntervalDate';
 export * from './useApiList';
 export * from './Loader';
 export * from './is';
+export * from './useRem';
