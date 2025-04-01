@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 14:33:25
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-07-23 14:04:26
+ * @LastEditTime : 2025-04-01 14:23:53
  * @FilePath     : /fallen-zero-use/src/useEncryptName/index.ts
  * @FileName     :
  */
@@ -54,19 +54,19 @@ const EncryptType = {
   phone: {
     start: 3,
     end: 4,
-    info: 'd',
+    info: '\\d',
     char: '*',
   },
   idCard: {
     start: 3,
     end: 4,
-    info: 'd',
+    info: '\\dxX',
     char: '*',
   },
   bankCard: {
     start: 6,
     end: 4,
-    info: 'd',
+    info: '\\d',
     char: '*',
   },
   email: {},

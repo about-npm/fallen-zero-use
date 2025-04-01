@@ -2,8 +2,8 @@
  * @Author       : fallen_zero
  * @Date         : 2023-10-07 15:24:47
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-10-07 15:25:32
- * @FilePath     : /zero-use/src/FontSize/index.ts
+ * @LastEditTime : 2025-04-01 14:28:23
+ * @FilePath     : /fallen-zero-use/src/FontSize/index.ts
  * @FileName     :
  */
 
@@ -20,6 +20,6 @@ export function FontSize(res: number, box: number = 1920): number {
     document.documentElement.clientWidth ??
     document.body.clientWidth;
   if (!clientWidth) return res;
-  const fontSize: number = 100 * (clientWidth / box);
+  const fontSize: number = clientWidth / box;
   return res * fontSize;
 }
