@@ -14,3 +14,7 @@ yarn add @fallen-zero/use
 # with pnpm
 pnpm add @fallen-zero/use
 ```
+
+## 文档地址
+
+> https://opendeep.wiki/about-npm/fallen-zero-use?branch=master
