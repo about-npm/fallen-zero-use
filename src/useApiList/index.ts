@@ -2,8 +2,8 @@
  * @Author       : fallen_zero
  * @Date         : 2024-01-17 10:19:01
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2024-01-18 11:21:43
- * @FilePath     : /zero-use/src/useApiList/index.ts
+ * @LastEditTime : 2025-06-02 15:06:59
+ * @FilePath     : /fallen-zero-use/src/useApiList/index.ts
  * @FileName     :
  */
 
@@ -58,9 +58,9 @@ export const useApiList = <T, P extends { page?: number; limit?: number }>(
   let currentParams = initParams;
   const {
     data,
-    start,
+    run,
     setParams: setApiParams,
-  } = useRequest(api, currentParams);
+  } = useRequest(api, [currentParams]);
   const loading = ref(false);
   const finished = ref(false);
   const refreshing = ref(false);
@@ -73,7 +73,7 @@ export const useApiList = <T, P extends { page?: number; limit?: number }>(
     list.value = [];
     page = 1;
     currentParams = { ...currentParams, ..._params, page };
-    setApiParams(currentParams);
+    setApiParams([currentParams]);
     currLimit = currentParams.limit ?? 10;
     finished.value = false;
     await getData();
@@ -81,7 +81,7 @@ export const useApiList = <T, P extends { page?: number; limit?: number }>(
 
   const getData = async () => {
     loading.value = true;
-    await start();
+    await run();
     list.value = [...list.value, ...(data.value?.list ?? [])];
     total.value = data.value?.total ?? 0;
     loading.value = false;
@@ -93,7 +93,7 @@ export const useApiList = <T, P extends { page?: number; limit?: number }>(
   };
 
   const onLoad = async () => {
-    setApiParams({ ...currentParams, page });
+    setApiParams([{ ...currentParams, page }]);
     await getData();
   };
 

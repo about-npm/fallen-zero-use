@@ -2,8 +2,8 @@
  * @Author       : fallen_zero
  * @Date         : 2023-12-07 10:25:07
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2023-12-07 10:25:47
- * @FilePath     : /zero-use/src/useRequestImmediate/index.ts
+ * @LastEditTime : 2025-06-02 15:07:38
+ * @FilePath     : /fallen-zero-use/src/useRequestImmediate/index.ts
  * @FileName     : 请求方法(立即执行)
  */
 
@@ -20,8 +20,8 @@ export const useRequestImmediate = async <
   fn: T,
   ...params: Parameters<T>
 ) => {
-  const { data, error, loading, start } = useRequest(fn, ...params);
-  await start();
+  const { data, error, loading, run } = useRequest(fn, [...params]);
+  await run();
   return {
     /** 请求数据 */
     data,
