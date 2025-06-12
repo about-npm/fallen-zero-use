@@ -2,7 +2,7 @@
  * @Author       : fallen_zero
  * @Date         : 2025-05-28 16:47:32
  * @LastEditors  : fallen_zero
- * @LastEditTime : 2025-05-28 16:49:17
+ * @LastEditTime : 2025-06-12 09:48:13
  * @FilePath     : /fallen-zero-use/src/useResize/index.ts
  * @FileName     :
  */
@@ -12,7 +12,7 @@ const domMap = new WeakMap<Element, () => void>();
 // 尺寸变化监听器
 let resizeObserver: ResizeObserver | null = null;
 
-function useResize() {
+export function useResize() {
   if (!resizeObserver) {
     resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
