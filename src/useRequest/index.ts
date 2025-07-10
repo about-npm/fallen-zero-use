@@ -34,7 +34,7 @@ export interface RequestOptions {
 export class CreateRequest {
   constructor(private config: RequestOptions = {}) {}
 
-  public requestApi<T extends (...args: any[]) => IPromise<any>>(
+  public requestApi = <T extends (...args: any[]) => IPromise<any>>(
     api: T,
     params: [...Parameters<T>],
     {
@@ -52,7 +52,7 @@ export class CreateRequest {
       checkStatus?: (res: RequestResult<T>) => boolean;
       showLoading?: (loading: boolean) => void;
     } = {}
-  ) {
+  ) => {
     // 当前取消请求函数
     let currentCancel: (() => void) | undefined;
     // 请求参数
@@ -140,9 +140,9 @@ export class CreateRequest {
       /** 取消请求 */
       cancel: currentCancel,
     };
-  }
+  };
 }
 
 const request = new CreateRequest();
 
-export const useRequest = request.requestApi;
+export const useRequest = request.requestApi.bind(request);
