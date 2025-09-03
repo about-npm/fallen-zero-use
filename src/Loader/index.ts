@@ -6,6 +6,7 @@
  * @FilePath     : /zero-use/src/Loader/index.ts
  * @FileName     :
  */
+import { LikePromise } from 'src/useRequest';
 import { App, Component, createApp } from 'vue';
 
 export class Loader {
@@ -19,11 +20,15 @@ export class Loader {
   constructor(
     private comp: Component | (() => JSX.Element),
     private div: Element = document.createElement('div'),
-    private teleport: Element = document.body
+    private teleport: Element = document.body,
+    private useApp?: (app: App<Element>) => LikePromise<void>
   ) {}
 
-  public show() {
+  public async show() {
     this.app = createApp(this.comp);
+    if (this.useApp) {
+      await this.useApp(this.app);
+    }
     this.teleport.appendChild(this.div);
     this.app.mount(this.div);
   }
