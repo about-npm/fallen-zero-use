@@ -15,6 +15,7 @@ export enum UserAgent {
   微信 = 'wx',
   钉钉 = 'dingding',
   浙政钉 = 'dingding_zy',
+  鸿蒙 = 'harmonyos',
 }
 
 /**
@@ -35,6 +36,7 @@ export const getSystemAgent = (
     [UserAgent.微信]: u.includes('micromessenger'), // 是否在微信
     [UserAgent.钉钉]: u.includes('dingding') || u.includes('dingtalk'), // 钉钉
     [UserAgent.浙政钉]: u.indexOf('taurusapp') > -1, // 是否在专有钉钉/浙政钉
+    [UserAgent.鸿蒙]: u.includes('phone'),
   };
   return type ? Boolean(result[type]) : result;
 };

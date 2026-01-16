@@ -62,6 +62,14 @@ export enum DATE_FORMAT {
   'MONTHTIME_ZH' = 'MM月DD日 HH时mm分',
   /** 用`xx月xx日 xx时xx分xx秒`分割的月日时分秒格式 */
   'MONTHTIMES_ZH' = 'MM月DD日 HH时mm分ss秒',
+  /** 用`xx月xx日`分割的月日格式 */
+  /** 用`xx时xx分`分割的时分格式 */
+  'TIME_ZH' = 'HH时mm分',
+  /** 用`xx时xx分xx秒`分割的时分秒格式 */
+  'TIMES_ZH' = 'HH时mm分ss秒',
+  /** 用`xx月xx日`分割的月日格式 */
+  'MONTH_ZH' = 'MM月DD日',
+  /** 用`xx时xx分xx秒`分割的时分秒格式 */
   /** 年 */
   'YEAR' = 'YYYY',
   /** 月 */

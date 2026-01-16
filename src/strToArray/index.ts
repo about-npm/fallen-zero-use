@@ -24,3 +24,31 @@ export function strToArray(
   if (!str) return [];
   return str.split(separator).filter(Boolean);
 }
+
+/**
+ * 数组转字符串
+ * @param array 数组
+ * @param separator 拼接符
+ * @returns 字符串
+ */
+export function arrayToStr(
+  array: (string | number | undefined)[],
+  separator = ','
+) {
+  return array.filter(Boolean).join(separator);
+}
+
+export function parseJSON<T = any>(
+  str: string | undefined | null,
+  defaultValue: T,
+  reviver?: ((this: any, key: string, value: any) => T) | undefined
+): T {
+  try {
+    if (!str) return defaultValue;
+    const result = JSON.parse(str, reviver);
+    if (!defaultValue || typeof result === typeof defaultValue) return result;
+    return defaultValue;
+  } catch {
+    return defaultValue;
+  }
+}

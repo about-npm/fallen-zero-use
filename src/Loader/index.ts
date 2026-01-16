@@ -6,7 +6,7 @@
  * @FilePath     : /zero-use/src/Loader/index.ts
  * @FileName     :
  */
-import { LikePromise } from 'src/useRequest';
+import { LikePromise } from '../useRequest';
 import { App, Component, createApp } from 'vue';
 
 export class Loader {

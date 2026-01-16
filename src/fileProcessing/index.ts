@@ -7,6 +7,8 @@
  * @FileName     :
  */
 
+import { isNumber } from '../is';
+
 interface ImageCompressionOptions {
   /** 图片文件 */
   file: File;
@@ -144,8 +146,9 @@ export function getFileExt(filename: string): string {
  * @param {File} file 文件
  * @return {string} 文件大小
  */
-export function getFileSize(file: File): string {
-  let size = file.size;
+export function getFileSize(file: File | number | undefined): string {
+  if (!file) return '0B';
+  let size = isNumber(file) ? file : file.size;
   const units = ['B', 'KB', 'MB', 'GB', 'TB'];
   let i = 0;
   while (size >= 1024 && i < units.length - 1) {

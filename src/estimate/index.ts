@@ -55,7 +55,7 @@ export const toPrecision = (num: number, places: number = 2): number => {
  * @param {*} value 值
  * @returns 是否为空
  */
-export function isEmptyValue(value: any): boolean {
+export function isEmptyValue(value: any): value is undefined | null | '' {
   return [undefined, null, ''].includes(value);
 }
 
@@ -69,6 +69,13 @@ export const isImage = (path: string): boolean => {
   const regex = /\.(jpe?g|png|gif|bmp|webp|svgz?|tiff?|jfif|pjp|pjpeg|avif)$/i;
   return regex.test(path);
 };
+
+export function isVideo(filename: string = ''): boolean {
+  // 创建正则表达式，使用非捕获组 (?:) 提高性能
+  const videoRegex =
+    /\.(?:mp4|avi|mkv|mov|wmv|flv|webm|m4v|3gp|rmvb|mpg|mpeg|ts|mts|m2ts)$/i;
+  return videoRegex.test(filename?.toLowerCase());
+}
 
 /**
  * 车牌号验证（后半部分不能出现 I 和 O，避免与 0 和 1 混淆）
@@ -150,8 +157,8 @@ export function isAllEqual<T>(a: T, b: T) {
  * @param {unknown} value
  * @returns {boolean} 是否为空
  */
-const isNil = (v: unknown): boolean => {
-  return typeof v === 'undefined' || v === null;
+const isNil = (value: any): value is null | undefined => {
+  return typeof value === 'undefined' || value === null;
 };
 
 /** 判断数组是否相同

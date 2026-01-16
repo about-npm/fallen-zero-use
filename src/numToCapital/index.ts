@@ -7,6 +7,8 @@
  * @FileName     :
  */
 
+import { isEmptyValue } from '../estimate';
+
 /**
  * 阿拉伯数字转大写，整数转大写
  * @param num 数字
@@ -86,3 +88,131 @@ export const numToCapital = (num: number, type = false) => {
   turnNum(num, percent, index);
   return resultAr.reverse().join('');
 };
+
+export function toChineseAmount(num: number | string): string {
+  // 处理零
+  if (isEmptyValue(num) || Number(num) === 0 || num === '-') return '零元整';
+
+  const chineseNums = [
+    '零',
+    '壹',
+    '贰',
+    '叁',
+    '肆',
+    '伍',
+    '陆',
+    '柒',
+    '捌',
+    '玖',
+  ];
+  const chineseUnits = ['', '拾', '佰', '仟'];
+  const chineseBigUnits = ['', '万', '亿', '兆'];
+  const chineseDecimalUnits = ['角', '分'];
+
+  // 处理负数
+  let isNegative = false;
+  if (String(num)[0] === '-') {
+    isNegative = true;
+    num = Math.abs(Number(String(num).slice(1)));
+  }
+
+  // 分割整数和小数
+  const [integerPart, decimalPart = ''] = String(num).split('.');
+
+  // 整数部分转换
+  let result = '';
+  let zeroFlag = false;
+
+  // 逐位处理整数部分
+  for (let i = 0; i < integerPart.length; i++) {
+    const digit = parseInt(integerPart[i]);
+    const place = integerPart.length - i - 1;
+    const unitIndex = place % 4;
+    const bigUnitIndex = Math.floor(place / 4);
+
+    if (digit === 0) {
+      zeroFlag = true;
+    } else {
+      // 如果前面有零，添加零
+      if (zeroFlag) {
+        result += chineseNums[0];
+        zeroFlag = false;
+      }
+
+      // 添加数字（处理"壹拾"简化为"拾"的情况）
+      if (
+        !(
+          digit === 1 &&
+          unitIndex === 1 &&
+          (result === '' || result.endsWith('亿') || result.endsWith('万'))
+        )
+      ) {
+        result += chineseNums[digit];
+      }
+
+      // 添加小单位（拾、佰、仟）
+      result += chineseUnits[unitIndex];
+    }
+
+    // 添加大单位（万、亿、兆）
+    if (unitIndex === 0 && bigUnitIndex > 0) {
+      // 如果这一组全为零，且不是最后一组，可能需要添加零
+      let groupAllZero = true;
+      const groupStart = Math.max(0, integerPart.length - place - 4);
+      const groupEnd = integerPart.length - place;
+      for (let j = groupStart; j < groupEnd; j++) {
+        if (parseInt(integerPart[j]) !== 0) {
+          groupAllZero = false;
+          break;
+        }
+      }
+
+      if (!groupAllZero || result.endsWith('零')) {
+        // 移除末尾可能多余的零
+        while (result.endsWith('零')) {
+          result = result.slice(0, -1);
+        }
+        result += chineseBigUnits[bigUnitIndex];
+      }
+    }
+  }
+
+  // 处理末尾的零
+  result = result.replace(/零+$/, '');
+
+  // 如果整数部分全为0
+  if (result === '') {
+    result = chineseNums[0];
+  }
+
+  result += '元';
+
+  // 处理小数部分
+  let decimalResult = '';
+  if (decimalPart) {
+    const paddedDecimal = decimalPart.padEnd(2, '0').substring(0, 2);
+
+    for (let i = 0; i < paddedDecimal.length; i++) {
+      const digit = parseInt(paddedDecimal[i]);
+      if (digit !== 0) {
+        decimalResult += chineseNums[digit] + chineseDecimalUnits[i];
+      } else if (i === 0 && paddedDecimal[1] !== '0') {
+        decimalResult += chineseNums[0];
+      }
+    }
+  }
+
+  result += decimalResult;
+
+  // 添加"整"字
+  if (decimalResult === '') {
+    result += '整';
+  }
+
+  // 处理负数
+  if (isNegative) {
+    result = '负' + result;
+  }
+
+  return result;
+}

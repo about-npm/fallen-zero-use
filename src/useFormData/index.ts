@@ -7,7 +7,7 @@
  * @FileName     :
  */
 
-import { isArray, isFile, isObject } from 'src/is';
+import { isArray, isFile, isObject } from '../is';
 
 /**
  * 将表单对象转为 FormData 格式

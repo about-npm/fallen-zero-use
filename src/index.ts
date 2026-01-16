@@ -33,3 +33,6 @@ export * from './useRem';
 export * from './useLoopExec';
 export * from './fields';
 export * from './useResize';
+export * from './useTheme';
+export * from './useVisible';
+export * from './useTagMsg';

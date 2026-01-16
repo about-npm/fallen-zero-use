@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "jsx": "preserve",
     "outDir": "./dist",
     "declaration": true,
@@ -9,9 +8,17 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "lib": ["ESNext", "DOM"]
+    "moduleResolution": "bundler",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", ".*/"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".*/"
+  ]
 }
